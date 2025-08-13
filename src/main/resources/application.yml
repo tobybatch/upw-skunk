@@ -1,0 +1,28 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: uwp-skunk
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${hmpps.auth.url}/.well-known/jwks.json
+#       client:
+#         registration:
+#           manage-pom-cases:
+#             provider: hmpps-auth
+#             client-id: approved-premises-api
+#             client-secret: clientsecret
+#             authorization-grant-type: client_credentials
+
+log-client-credentials-jwt-info: false
+
+hmpps:
+  auth:
+    url: https://sign-in-dev.hmpps.service.justice.gov.uk/auth
+    client-id: approved-premises-api
+    client-secret: clientsecret
+    authorization-grant-type: client_credentials
+    redirect-uri: http://localhost:8080/sign-in/callback
