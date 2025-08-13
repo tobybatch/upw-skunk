@@ -45,6 +45,7 @@ class SecurityConfig {
                 authorize(HttpMethod.GET, "/swagger-ui/**", permitAll)
                 authorize(HttpMethod.GET, "/public/**", permitAll)
                 authorize(HttpMethod.GET, "/probationOnly/**", hasAnyAuthority("ROLE_PROBATION", "ROLE_POM"))
+                authorize(HttpMethod.GET, "/delius/**", hasAnyAuthority("ROLE_PROBATION", "ROLE_POM"))
             }
 
             anonymous { disable() }

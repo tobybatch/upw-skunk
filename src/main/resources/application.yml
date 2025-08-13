@@ -9,13 +9,21 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: ${hmpps.auth.url}/.well-known/jwks.json
-#       client:
-#         registration:
-#           manage-pom-cases:
-#             provider: hmpps-auth
-#             client-id: approved-premises-api
-#             client-secret: clientsecret
-#             authorization-grant-type: client_credentials
+      client:
+        registration:
+          delius-backed-apis:
+            provider: hmpps-auth
+            client-id: approved-premises-api
+            client-secret: clientsecret
+            authorization-grant-type: client_credentials
+          hmpps-tier:
+            provider: hmpps-auth
+            client-id: approved-premises-api
+            client-secret: clientsecret
+            authorization-grant-type: client_credentials
+        provider:
+          hmpps-auth:
+            token-uri: ${hmpps.auth.url}/oauth/token
 
 log-client-credentials-jwt-info: false
 
@@ -26,3 +34,31 @@ hmpps:
     client-secret: clientsecret
     authorization-grant-type: client_credentials
     redirect-uri: http://localhost:8080/sign-in/callback
+
+services:
+  default:
+    # 0.7MB
+    max-response-in-memory-size-bytes: 750000
+    timeout-ms: 10000
+  hmpps-tier:
+    base-url: http://localhost:9004
+    timeout-ms: 2000
+  ap-delius-context-api:
+    base-url: http://localhost:8181
+
+preemptive-cache-enabled: true
+preemptive-cache-key-prefix: ""
+preemptive-cache-logging-enabled: false
+preemptive-cache-delay-ms: 10000
+# 90 minutes
+preemptive-cache-lock-duration-ms: 5400000
+
+caches:
+  staffMembers:
+    expiry-seconds: 21600
+  userAccess:
+    expiry-seconds: 1200
+  staffDetails:
+    expiry-seconds: 1200
+  teamManagingCases:
+    expiry-seconds: 21600

@@ -38,12 +38,6 @@ class ControllerJwtTest : IntegrationTestBase() {
     }
 
     @Nested
-    inner class BadJwt {
-        // make a bad jwt
-        // hit a protected route
-    }
-
-    @Nested
     inner class GoodJwt {
 
         @Test
